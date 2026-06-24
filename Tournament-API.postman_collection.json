@@ -1,0 +1,226 @@
+{
+  "info": {
+    "_postman_id": "a1e2c3d4-5f6a-4b7c-8d9e-0f1a2b3c4d5e",
+    "name": "Tournament API (Symfony + Laravel)",
+    "description": "CRUD-ендпоінти сутності Tournament для двох проєктів лабораторної роботи: Symfony (Doctrine ORM, sqlite) та Laravel (Eloquent, Route::apiResource, sqlite). Жоден маршрут не захищений автентифікацією.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Symfony",
+      "item": [
+        {
+          "name": "List Tournaments",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{symfony_base_url}}/api/tournaments",
+              "host": ["{{symfony_base_url}}"],
+              "path": ["api", "tournaments"]
+            },
+            "description": "Отримати список усіх турнірів."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tournament",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{symfony_base_url}}/api/tournaments/:id",
+              "host": ["{{symfony_base_url}}"],
+              "path": ["api", "tournaments", ":id"],
+              "variable": [
+                { "key": "id", "value": "1", "description": "ID турніру" }
+              ]
+            },
+            "description": "Отримати інформацію про конкретний турнір за ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Tournament",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Champions Cup\",\n  \"location\": \"Kyiv\",\n  \"startDate\": \"2026-09-01\",\n  \"maxTeams\": 16\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{symfony_base_url}}/api/tournaments",
+              "host": ["{{symfony_base_url}}"],
+              "path": ["api", "tournaments"]
+            },
+            "description": "Створити новий турнір. Поля name, location, startDate обов'язкові (Assert\\NotBlank), maxTeams опціональне."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Tournament",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"maxTeams\": 32\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{symfony_base_url}}/api/tournaments/:id",
+              "host": ["{{symfony_base_url}}"],
+              "path": ["api", "tournaments", ":id"],
+              "variable": [
+                { "key": "id", "value": "1", "description": "ID турніру" }
+              ]
+            },
+            "description": "Частково оновити турнір. Можна передати будь-яку підмножину полів name, location, startDate, maxTeams."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Tournament",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{symfony_base_url}}/api/tournaments/:id",
+              "host": ["{{symfony_base_url}}"],
+              "path": ["api", "tournaments", ":id"],
+              "variable": [
+                { "key": "id", "value": "1", "description": "ID турніру" }
+              ]
+            },
+            "description": "Видалити турнір за ID. Повертає 204 No Content."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Laravel",
+      "item": [
+        {
+          "name": "List Tournaments",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{laravel_base_url}}/tournaments",
+              "host": ["{{laravel_base_url}}"],
+              "path": ["tournaments"]
+            },
+            "description": "Отримати список усіх турнірів (TournamentController@index)."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tournament",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{laravel_base_url}}/tournaments/:tournament",
+              "host": ["{{laravel_base_url}}"],
+              "path": ["tournaments", ":tournament"],
+              "variable": [
+                { "key": "tournament", "value": "1", "description": "ID турніру (route model binding)" }
+              ]
+            },
+            "description": "Отримати інформацію про конкретний турнір за ID (TournamentController@show)."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Tournament",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Champions Cup\",\n  \"location\": \"Lviv\",\n  \"start_date\": \"2026-09-01\",\n  \"max_teams\": 16\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{laravel_base_url}}/tournaments",
+              "host": ["{{laravel_base_url}}"],
+              "path": ["tournaments"]
+            },
+            "description": "Створити новий турнір. Поля name, location, start_date обов'язкові (required), max_teams опціональне (nullable|integer)."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Tournament",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"max_teams\": 32\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{laravel_base_url}}/tournaments/:tournament",
+              "host": ["{{laravel_base_url}}"],
+              "path": ["tournaments", ":tournament"],
+              "variable": [
+                { "key": "tournament", "value": "1", "description": "ID турніру (route model binding)" }
+              ]
+            },
+            "description": "Частково оновити турнір. Поля валідуються як 'sometimes' — можна передати будь-яку підмножину name, location, start_date, max_teams."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Tournament",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{laravel_base_url}}/tournaments/:tournament",
+              "host": ["{{laravel_base_url}}"],
+              "path": ["tournaments", ":tournament"],
+              "variable": [
+                { "key": "tournament", "value": "1", "description": "ID турніру (route model binding)" }
+              ]
+            },
+            "description": "Видалити турнір за ID. Повертає 204 No Content (TournamentController@destroy)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "symfony_base_url", "value": "http://localhost:8000", "type": "string" },
+    { "key": "laravel_base_url", "value": "http://localhost:8001/api", "type": "string" }
+  ]
+}
